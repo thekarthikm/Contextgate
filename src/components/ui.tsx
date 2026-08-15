@@ -43,7 +43,7 @@ export function Panel({
       )}
     >
       {(title || action) && (
-        <header className="flex min-h-[52px] shrink-0 items-center justify-between gap-3 border-b border-line px-4 py-3 sm:px-5">
+        <header className="flex min-h-[52px] shrink-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-line px-4 py-3 sm:px-5">
           <div className="min-w-0">
             {eyebrow && <div className="label-xs mb-1">{eyebrow}</div>}
             {title && (

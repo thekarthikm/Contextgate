@@ -76,7 +76,7 @@ export function buildContext(
       : chunks.map(renderChunk).join('\n\n');
 
   return {
-    text: `${CONTEXT_PREAMBLE}\n\nCONTEXT\n${'='.repeat(58)}\n${body}\n${'='.repeat(58)}`,
+    text: `${CONTEXT_PREAMBLE}\n\nCONTEXT\n${'='.repeat(44)}\n${body}\n${'='.repeat(44)}`,
     chunks,
     views: retrieved.map(({ chunk, score }) => ({
       id: chunk.id,

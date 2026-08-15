@@ -43,7 +43,6 @@ export function ChatPanel() {
         </Pill>
       }
       bodyClassName="flex min-h-0 flex-col p-0"
-      className="min-h-[520px] lg:h-[calc(100dvh-9.5rem)]"
     >
       {/* Active identity — the answer's scope is a property of this, nothing else. */}
       <div className="flex shrink-0 flex-wrap items-center gap-x-3 gap-y-2 border-b border-line bg-raised/30 px-4 py-2.5 sm:px-5">
@@ -64,7 +63,15 @@ export function ChatPanel() {
         <ClassificationTag value={identity.clearance} className="ml-auto" />
       </div>
 
-      <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-5">
+      {/*
+        A fixed transcript height rather than a stretched panel: it keeps the
+        two demo columns the same height at every breakpoint and keeps the
+        composer on screen without any viewport arithmetic.
+      */}
+      <div
+        ref={scrollRef}
+        className="h-[360px] min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:h-[420px] sm:px-5 xl:h-[480px]"
+      >
         {messages.length === 0 ? (
           <Welcome />
         ) : (
@@ -209,12 +216,12 @@ function Bubble({
   const malicious = result?.modelMode === 'malicious';
 
   return (
-    <div className="animate-rise flex flex-col gap-1.5">
+    <div className="group animate-rise flex flex-col gap-1.5">
       <button
         type="button"
         onClick={onFocus}
         className={cx(
-          'group max-w-[95%] rounded-xl rounded-bl-sm border px-3.5 py-3 text-left transition-colors',
+          'max-w-[95%] rounded-xl rounded-bl-sm border px-3.5 py-3 text-left transition-colors',
           malicious
             ? 'border-danger/40 bg-danger-soft/40 hover:border-danger/60'
             : 'border-line bg-raised/60 hover:border-line-strong',

@@ -81,9 +81,9 @@ export function insecureRun(_identity: Identity, query: string): ComparisonSide 
     )
     .join('\n\n');
 
-  const modelContext = `${INSECURE_PREAMBLE}\n\nCONTEXT\n${'='.repeat(58)}\n${
+  const modelContext = `${INSECURE_PREAMBLE}\n\nCONTEXT\n${'='.repeat(44)}\n${
     body || '(no context matched this request)'
-  }\n${'='.repeat(58)}`;
+  }\n${'='.repeat(44)}`;
 
   // The malicious model ignores the "do not reveal" instruction, as a malicious
   // model would. The prompt was never a security control.
