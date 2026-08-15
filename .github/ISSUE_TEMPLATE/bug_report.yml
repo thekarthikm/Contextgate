@@ -1,0 +1,77 @@
+name: Bug report
+description: Something in the demo behaves incorrectly or looks broken
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        **If this is an authorization bypass** — a way to get content above your clearance into
+        the model context — please close this and
+        [report it privately](https://github.com/thekarthikm/Contextgate/security/advisories/new)
+        instead.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you see?
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Sign in as Maya
+        2. Set the model to Leak Everything
+        3. Ask "..."
+        4. ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: identity
+    attributes:
+      label: Which identity were you signed in as?
+      options:
+        - Maya Chen (employee / INTERNAL)
+        - Marcus Rivera (manager / CONFIDENTIAL)
+        - Elena Vasquez (executive / EXECUTIVE)
+        - Not signed in
+        - Not applicable
+
+  - type: input
+    id: query
+    attributes:
+      label: Exact query used
+      description: Copy it verbatim, including any adversarial text.
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Does `npm run verify` pass on your machine?
+      description: >-
+        Paste the tail of the output if anything fails. If the bug is in the pipeline or API,
+        please also run `node scripts/demo-story.mjs` against a running dev server.
+      render: shell
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "Node 22.11.0 · macOS 15 · Chrome 130 · viewport 390px"
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Browser console output
+      description: Only if relevant.
+      render: shell
