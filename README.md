@@ -373,6 +373,8 @@ Built for **[[devkick]: Waterloo Ship For Kicks Night with Devin](https://luma.c
 at Builders Club, Kitchener-Waterloo — hosted by Builders Club and
 [Cognition](https://cognition.ai).
 
-Built with [Devin](https://devin.ai).
+Built with [Devin](https://devin.ai). The original build specification Devin worked from is
+kept in [`docs/build-spec.md`](docs/build-spec.md) — it is the brief, not documentation of the
+finished code, and it is preserved as provenance rather than maintained.
 
 Licensed under the [MIT License](LICENSE).
