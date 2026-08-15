@@ -1,0 +1,13 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a security vulnerability (privately)
+    url: https://github.com/thekarthikm/Contextgate/security/advisories/new
+    about: >-
+      Found a way to get unauthorized data into a model context, or to change a session's
+      clearance from the browser? Please report it privately rather than opening a public
+      issue. Read SECURITY.md first for what is in and out of scope.
+  - name: What ContextGate is (and is not)
+    url: https://github.com/thekarthikm/Contextgate#what-is-real-and-what-is-simulated
+    about: >-
+      Before filing, note that the retriever and the LLM are deliberately simulated, and every
+      secret in the repository is synthetic.

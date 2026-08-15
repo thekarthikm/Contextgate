@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEXT_TELEMETRY_DISABLED: '1'
+
+jobs:
+  verify:
+    name: Verify (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['20.9', '22', '24']
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # The production build must exist before the test suite runs: the client
+      # bundle scan inspects the real assets in .next/ rather than the source.
+      - name: Build
+        run: npm run build
+
+      - name: Security proof suite
+        run: npm test
+
+      # End-to-end verification of the scripted demo over real HTTP, against the
+      # production server. This is what catches a regression that only shows up
+      # once the route handlers, session cookie and browser client are involved.
+      - name: Start production server
+        run: |
+          npm start &
+          echo "SERVER_PID=$!" >> "$GITHUB_ENV"
+          for i in $(seq 1 40); do
+            if curl -sSf http://localhost:3000/ >/dev/null 2>&1; then
+              echo "Server is up after ${i} attempt(s)."
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Server failed to start within 40s."
+          exit 1
+
+      - name: End-to-end demo story
+        run: node scripts/demo-story.mjs
+
+      - name: Stop production server
+        if: always()
+        run: kill "${SERVER_PID}" 2>/dev/null || true

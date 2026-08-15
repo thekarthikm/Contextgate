@@ -1,0 +1,58 @@
+name: New attack idea
+description: Propose an attack for the Attack Lab
+labels: [attack-lab]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Attacks that **fail** against the boundary are great demo material — open this issue or
+        send a PR adding it to `src/lib/attacks.ts` with a test.
+
+
+        Attacks that **succeed** are vulnerabilities. Please
+        [report those privately](https://github.com/thekarthikm/Contextgate/security/advisories/new)
+        instead of here.
+
+  - type: input
+    id: name
+    attributes:
+      label: Attack name
+      placeholder: "Homoglyph substitution"
+    validations:
+      required: true
+
+  - type: input
+    id: category
+    attributes:
+      label: Category
+      placeholder: "Obfuscation · Identity · Exfiltration · Social engineering · …"
+    validations:
+      required: true
+
+  - type: textarea
+    id: prompt
+    attributes:
+      label: The prompt
+      description: Exactly what should be sent.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it fails against ContextGate
+      description: >-
+        One or two sentences, in the style of the existing `explanation` fields — this is shown
+        in the result card. The best ones explain why the technique is defeated by *absence*
+        rather than by refusal.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: verified
+    attributes:
+      label: Verification
+      options:
+        - label: I have run this against the demo and the boundary held
+        - label: I confirm this does not leak an executive canary into `modelContext`
